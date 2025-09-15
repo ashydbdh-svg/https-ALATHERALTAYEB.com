@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام التصويت - جمعية الإبداع</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background-color: #222;
+            color: #f0f0f0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* التصميم العام للرأس */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo i {
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* تصميم الأقسام */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .dark-mode .section-title h2 {
+            color: #f0f0f0;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* صفحة التصويت الخاصة */
+        .vote-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .dark-mode .vote-section {
+            background: #333;
+        }
+
+        .vote-options {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .vote-option {
+            flex: 1;
+            min-width: 200px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #eee;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dark-mode .vote-option {
+            background: #444;
+            border-color: #555;
+        }
+
+        .vote-option:hover {
+            border-color: var(--primary-color);
+            background: #f0f8ff;
+        }
+
+        .dark-mode .vote-option:hover {
+            background: #3a3a3a;
+        }
+
+        .vote-option.selected {
+            border-color: var(--secondary-color);
+            background: #f0fff4;
+        }
+
+        .dark-mode .vote-option.selected {
+            background: #2d3a2d;
+        }
+
+        .vote-option h4 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .dark-mode .vote-option h4 {
+            color: #f0f0f0;
+        }
+
+        /* تصميم النموذج */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .dark-mode .form-control {
+            background: #444;
+            color: #f0f0f0;
+            border-color: #555;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background: #c0392b;
+        }
+
+        /* تصميم الجدول */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .dark-mode table {
+            background: #333;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .dark-mode th, .dark-mode td {
+            border-color: #555;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .dark-mode tr:hover {
+            background-color: #444;
+        }
+
+        /* تصميم الفوتر */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-right: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* زر الوضع الليلي */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--dark-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .vote-options {
+                flex-direction: column;
+            }
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info i {
+            margin-left: 8px;
+        }
+
+        #voteNotification {
+            display: none; 
+            background: #ffebee; 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin-bottom: 20px; 
+            text-align: center;
+        }
+
+        .dark-mode #voteNotification {
+            background: #4a2c2c;
+        }
+    </style>
+</head>
+<body>
+    <!-- الرأس -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-users"></i>
+                <span>جمعية الإبداع</span>
+            </a>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="news.html">أخبار الجمعية</a></li>
+                    <li><a href="vote.html" class="active">التصويت</a></li>
+                    <li id="userInfoItem" style="display: none;">
+                        <div class="user-info">
+                            <i class="fas fa-user"></i>
+                            <span id="userName"></span>
+                        </div>
+                    </li>
+                    <li id="loginLink"><a href="login.html">تسجيل الدخول</a></li>
+                    <li id="logoutLink" style="display: none;"><a href="#" onclick="logout()">تسجيل الخروج</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- صفحة التصويت -->
+    <section id="vote">
+        <div class="container">
+            <div class="section-title">
+                <h2>نظام التصويت</h2>
+                <p>يمكنك هنا المشاركة في التصويت على قرارات الجمعية أو انتخاب المدراء الجدد</p>
+            </div>
+            
+            <div id="voteNotification">
+                <p>التصويت غير مفعل حالياً. يرجى الانتظار حتى يقوم المدير بتفعيل التصويت.</p>
+            </div>
+            
+            <div class="vote-section">
+                <h3>التصويت على انتخاب مدير جديد</h3>
+                <p>يرجى اختيار أحد المرشحين أدناه:</p>
+                
+                <div class="vote-options">
+                    <div class="vote-option" onclick="selectCandidate(this, 'أحمد محمد')">
+                        <h4>أحمد محمد</h4>
+                        <p>مرشح لديه خبرة 10 سنوات في إدارة المنظمات غير الربحية</p>
+                    </div>
+                    <div class="vote-option" onclick="selectCandidate(this, 'فاطمة عبدالله')">
+                        <h4>فاطمة عبدالله</h4>
+                        <p>مرشحة متخصصة في تطوير المشاريع المجتمعية</p>
+                    </div>
+                    <div class="vote-option" onclick="selectCandidate(this, 'خالد سعيد')">
+                        <h4>خالد سعيد</h4>
+                        <p>مرشح حاصل على جوائز في العمل التطوعي</p>
+                    </div>
+                </div>
+                
+                <form id="voteForm">
+                    <div class="form-group">
+                        <label for="voterName">اسم المصوت</label>
+                        <input type="text" id="voterName" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="voterNumber">رقم العضوية</label>
+                        <input type="text" id="voterNumber" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="membershipType">نوع العضوية</label>
+                        <select id="membershipType" class="form-control" required>
+                            <option value="">اختر نوع العضوية</option>
+                            <option value="منتسب">منتسب</option>
+                            <option value="مساهم">مساهم</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="voterNotes">ملاحظات المصوت (اختياري)</label>
+                        <textarea id="voterNotes" class="form-control"></textarea>
+                    </div>
+                    
+                    <button type="button" class="btn" onclick="submitVote()">إرسال التصويت</button>
+                    <button type="button" class="btn btn-secondary" onclick="generatePDF()">حفظ كملف PDF</button>
+                </form>
+            </div>
+            
+            <div class="section-title">
+                <h2>نتائج التصويتات السابقة</h2>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>القرار</th>
+                            <th>تاريخ التصويت</th>
+                            <th>عدد المصوتين</th>
+                            <th>النسبة المؤيدة</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>انتخاب مدير الجمعية</td>
+                            <td>2023-03-15</td>
+                            <td>145</td>
+                            <td>78%</td>
+                            <td>مكتمل</td>
+                        </tr>
+                        <tr>
+                            <td>اعتماد الميزانية السنوية</td>
+                            <td>2023-02-10</td>
+                            <td>132</td>
+                            <td>92%</td>
+                            <td>مكتمل</td>
+                        </tr>
+                        <tr>
+                            <td>تعديل نظام الجمعية</td>
+                            <td>2023-01-05</td>
+                            <td>128</td>
+                            <td>65%</td>
+                            <td>مكتمل</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>عن الجمعية</h3>
+                    <p>جمعية الإبداع هي منظمة غير ربحية تهدف إلى خدمة المجتمع وتنميته من خلال برامج ومشاريع متنوعة.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="#">عن الجمعية</a></li>
+                        <li><a href="news.html">أخبار الجمعية</a></li>
+                        <li><a href="vote.html">التصويت</a></li>
+                        <li><a href="#">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>معلومات الاتصال</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> العنوان: المدينة، الحي، الشارع</p>
+                    <p><i class="fas fa-phone"></i> الهاتف: 0123456789</p>
+                    <p><i class="fas fa-envelope"></i> البريد: info@jamy3a.com</p>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; جمعية الإبداع 2023</p>
+                <p><a href="#" style="color: #ddd; text-decoration: none;">شروط الخدمة</a> | <a href="#" style="color: #ddd; text-decoration: none;">سياسة الخصوصية</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- زر الوضع الليلي -->
+    <div class="theme-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // تحميل حالة المستخدم عند فتح الصفحة
+        function loadUserState() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const userInfoItem = document.getElementById('userInfoItem');
+            const userName = document.getElementById('userName');
+            const loginLink = document.getElementById('loginLink');
+            const logoutLink = document.getElementById('logoutLink');
+            
+            if (currentUser) {
+                // عرض معلومات المستخدم
+                userInfoItem.style.display = 'block';
+                userName.textContent = currentUser.name;
+                loginLink.style.display = 'none';
+                logoutLink.style.display = 'block';
+                
+                // تعبئة بيانات المستخدم تلقائياً
+                document.getElementById('voterName').value = currentUser.name;
+                document.getElementById('voterNumber').value = currentUser.number || '';
+                
+                if (currentUser.type) {
+                    document.getElementById('membershipType').value = currentUser.type;
+                }
+            } else {
+                userInfoItem.style.display = 'none';
+                loginLink.style.display = 'block';
+                logoutLink.style.display = 'none';
+            }
+        }
+
+        // تسجيل الخروج
+        function logout() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('isManager');
+            window.location.href = 'index.html';
+        }
+
+        // تحديد مرشح في التصويت
+        let selectedCandidate = null;
+        
+        function selectCandidate(element, candidateName) {
+            // إلغاء التحديد السابق
+            document.querySelectorAll('.vote-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // تحديد الجديد
+            element.classList.add('selected');
+            selectedCandidate = candidateName;
+        }
+        
+        // إرسال التصويت
+        function submitVote() {
+            const name = document.getElementById('voterName').value;
+            const number = document.getElementById('voterNumber').value;
+            const membership = document.getElementById('membershipType').value;
+            
+            if (!name || !number || !membership) {
+                alert('يرجى ملء جميع الحقول الإلزامية');
+                return;
+            }
+            
+            if (!selectedCandidate) {
+                alert('يرجى اختيار مرشح للتصويت');
+                return;
+            }
+            
+            alert(`شكراً لك ${name} على المشاركة في التصويت لصالح ${selectedCandidate}!`);
+            
+            // إعادة تعيين النموذج
+            document.getElementById('voteForm').reset();
+            document.querySelectorAll('.vote-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            selectedCandidate = null;
+            
+            // إعادة تعبئة بيانات المستخدم إذا كان مسجلاً
+            loadUserState();
+        }
+        
+        // إنشاء PDF من استمارة التصويت
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(22);
+            doc.text('استمارة التصويت - جمعية الإبداع', 105, 15, { align: 'center' });
+            
+            doc.setFontSize(16);
+            doc.text('معلومات المصوت:', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.text(`اسم المصوت: ${document.getElementById('voterName').value}`, 20, 40);
+            doc.text(`رقم العضوية: ${document.getElementById('voterNumber').value}`, 20, 50);
+            doc.text(`نوع العضوية: ${document.getElementById('membershipType').value}`, 20, 60);
+            
+            if (selectedCandidate) {
+                doc.text(`المرشح المختار: ${selectedCandidate}`, 20, 70);
+            }
+            
+            const notes = document.getElementById('voterNotes').value;
+            if (notes) {
+                doc.text('ملاحظات المصوت:', 20, 85);
+                const splitNotes = doc.splitTextToSize(notes, 170);
+                doc.text(splitNotes, 20, 95);
+            }
+            
+            doc.save('استمارة_التصويت.pdf');
+        }
+
+        // تبديل الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        // تحميل الوضع الليلي من التخزين
+        function loadDarkMode() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                const themeIcon = document.querySelector('.theme-toggle i');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+
+        // تهيئة الصفحة عند التحميل
+        window.onload = function() {
+            loadUserState();
+            loadDarkMode();
+            
+            // إضافة class active للرابط الحالي
+            document.querySelectorAll('nav a').forEach(link => {
+                if (link.getAttribute('href') === 'vote.html') {
+                    link.classList.add('active');
+                }
+            });
+        };
+    </script>
+</body>
+</html>

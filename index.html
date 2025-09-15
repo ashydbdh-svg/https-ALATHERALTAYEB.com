@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جمعية الإبداع - الموقع الرسمي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background-color: #222;
+            color: #f0f0f0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* التصميم العام للرأس */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* تصميم قسم البطل */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* تصميم الأقسام */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .dark-mode .section-title h2 {
+            color: #f0f0f0;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* تصميم البطاقات */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .dark-mode .card {
+            background: #333;
+            color: #f0f0f0;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .dark-mode .card h3 {
+            color: #f0f0f0;
+        }
+
+        /* تصميم الفوتر */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-right: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* زر الوضع الليلي */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--dark-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+
+        /* نمط النوافذ المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .dark-mode .modal-content {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info i {
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- الرأس -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-users"></i>
+                <span>جمعية الإبداع</span>
+            </div>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html" class="active">الرئيسية</a></li>
+                    <li><a href="news.html">أخبار الجمعية</a></li>
+                    <li><a href="vote.html">التصويت</a></li>
+                    <li id="userInfoItem" style="display: none;">
+                        <div class="user-info">
+                            <i class="fas fa-user"></i>
+                            <span id="userName"></span>
+                        </div>
+                    </li>
+                    <li id="loginLink"><a href="login.html">تسجيل الدخول</a></li>
+                    <li id="logoutLink" style="display: none;"><a href="#" onclick="logout()">تسجيل الخروج</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- الصفحة الرئيسية -->
+    <section id="home">
+        <div class="hero">
+            <div class="container hero-content">
+                <h1>مرحباً بكم في جمعية الإبداع</h1>
+                <p>نحن منظمة ملتزمة بخدمة المجتمع وتطويره من خلال مبادراتنا وأنشطتنا المتنوعة</p>
+                <a href="#" class="btn" onclick="showJoinModal()">انضم إلينا</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section-title">
+                <h2>أخبار الجمعية</h2>
+            </div>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>افتتاح مشروع جديد للجمعية</h3>
+                        <p><strong>التاريخ:</strong> 2023-05-15</p>
+                        <p>تم اليوم افتتاح مشروع 'يداً بيد' الذي يهدف إلى دعم الأسر المحتاجة في المجتمع.</p>
+                        <a href="news.html" class="btn" style="margin-top: 15px;">قراءة المزيد</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>حفل تكريم المتطوعين</h3>
+                        <p><strong>التاريخ:</strong> 2023-04-20</p>
+                        <p>نظمت الجمعية حفلاً لتكريم متطوعيها البارزين في أنشطة العام الماضي.</p>
+                        <a href="news.html" class="btn" style="margin-top: 15px;">قراءة المزيد</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>ورشة عمل لتطوير المهارات</h3>
+                        <p><strong>التاريخ:</strong> 2023-03-08</p>
+                        <p>عقدت الجمعية ورشة عمل حول تطوير المهارات القيادية لأعضائها.</p>
+                        <a href="news.html" class="btn" style="margin-top: 15px;">قراءة المزيد</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-title">
+                <h2>أقسام الجمعية</h2>
+            </div>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80" alt="أعضاء الجمعية">
+                    </div>
+                    <div class="card-content">
+                        <h3>أعضاء الجمعية</h3>
+                        <p>تعرف على أعضاء جمعيتنا المتميزين ومساهماتهم في أنشطة الجمعية.</p>
+                        <a href="members.html" class="btn" style="margin-top: 15px;">عرض الأعضاء</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80" alt="التصويت">
+                    </div>
+                    <div class="card-content">
+                        <h3>التصويت</h3>
+                        <p>شارك في صنع القرار من خلال التصويت على قرارات الجمعية واختيار المدراء.</p>
+                        <a href="vote.html" class="btn" style="margin-top: 15px;">التصويت الآن</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80" alt="الإدارة المالية">
+                    </div>
+                    <div class="card-content">
+                        <h3>الإدارة المالية</h3>
+                        <p>اطلع على التقارير المالية وميزانية الجمعية ومشاريعها الحالية.</p>
+                        <a href="finance.html" class="btn" style="margin-top: 15px;">عرض التقارير</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم للمديرين فقط -->
+            <div id="adminSection" style="display: none;">
+                <div class="section-title">
+                    <h2>لوحة تحكم المدير</h2>
+                </div>
+                
+                <div class="cards">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>إدارة الأعضاء</h3>
+                            <p>إضافة أعضاء جدد أو تعديل بيانات الأعضاء الحاليين.</p>
+                            <a href="members.html" class="btn" style="margin-top: 15px;">إدارة الأعضاء</a>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>إدارة التصويت</h3>
+                            <p>تفعيل أو إلغاء التصويت ومتابعة النتائج.</p>
+                            <a href="vote.html" class="btn" style="margin-top: 15px;">إدارة التصويت</a>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>الإدارة المالية</h3>
+                            <p>تعديل الميزانية وإضافة التقارير المالية.</p>
+                            <a href="finance.html" class="btn" style="margin-top: 15px;">الإدارة المالية</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>عن الجمعية</h3>
+                    <p>جمعية الإبداع هي منظمة غير ربحية تهدف إلى خدمة المجتمع وتنميته من خلال برامج ومشاريع متنوعة.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="#">عن الجمعية</a></li>
+                        <li><a href="news.html">أخبار الجمعية</a></li>
+                        <li><a href="vote.html">التصويت</a></li>
+                        <li><a href="#">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>معلومات الاتصال</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> العنوان: المدينة، الحي، الشارع</p>
+                    <p><i class="fas fa-phone"></i> الهاتف: 0123456789</p>
+                    <p><i class="fas fa-envelope"></i> البريد: info@jamy3a.com</p>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; جمعية الإبداع 2023</p>
+                <p><a href="#" style="color: #ddd; text-decoration: none;">شروط الخدمة</a> | <a href="#" style="color: #ddd; text-decoration: none;">سياسة الخصوصية</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- زر الوضع الليلي -->
+    <div class="theme-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- نافذة الانضمام للجمعية -->
+    <div id="joinModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('joinModal')">&times;</span>
+            <h2>انضم إلى جمعيتنا</h2>
+            <form id="joinForm">
+                <div class="form-group">
+                    <label for="joinName">الاسم الكامل</label>
+                    <input type="text" id="joinName" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="joinPhone">رقم الهاتف</label>
+                    <input type="tel" id="joinPhone" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="joinMembershipType">نوع العضوية</label>
+                    <select id="joinMembershipType" class="form-control" required>
+                        <option value="">اختر نوع العضوية</option>
+                        <option value="منتسب">منتسب</option>
+                        <option value="مساهم">مساهم</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="btn" onclick="joinAssociation()">انضم الآن</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // البيانات الأولية
+        const initialData = {
+            members: [
+                { id: 1, name: "أحمد محمد", number: "M001", type: "منتسب", joinDate: "2022-01-15", status: "نشط", phone: "0551234567" },
+                { id: 2, name: "فاطمة عبدالله", number: "M002", type: "مساهم", joinDate: "2021-08-22", status: "نشط", phone: "0557654321" },
+                { id: 3, name: "خالد سعيد", number: "M003", type: "منتسب", joinDate: "2023-03-10", status: "نشط", phone: "0551122334" },
+                { id: 4, name: "سارة أحمد", number: "M004", type: "مساهم", joinDate: "2020-11-05", status: "نشط", phone: "0554433221" }
+            ],
+            news: [
+                { id: 1, title: "افتتاح مشروع جديد للجمعية", date: "2023-05-15", content: "تم اليوم افتتاح مشروع 'يداً بيد' الذي يهدف إلى دعم الأسر المحتاجة في المجتمع." },
+                { id: 2, title: "حفل تكريم المتطوعين", date: "2023-04-20", content: "نظمت الجمعية حفلاً لتكريم متطوعيها البارزين في أنشطة العام الماضي." },
+                { id: 3, title: "ورشة عمل لتطوير المهارات", date: "2023-03-08", content: "عقدت الجمعية ورشة عمل حول تطوير المهارات القيادية لأعضائها." }
+            ]
+        };
+
+        // تهيئة البيانات إذا لم تكن موجودة
+        function initializeData() {
+            if (!localStorage.getItem('associationData')) {
+                localStorage.setItem('associationData', JSON.stringify(initialData));
+            }
+            return JSON.parse(localStorage.getItem('associationData'));
+        }
+
+        // تحميل حالة المستخدم عند فتح الصفحة
+        function loadUserState() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const isManager = localStorage.getItem('isManager') === 'true';
+            const userInfoItem = document.getElementById('userInfoItem');
+            const userName = document.getElementById('userName');
+            const loginLink = document.getElementById('loginLink');
+            const logoutLink = document.getElementById('logoutLink');
+            const adminSection = document.getElementById('adminSection');
+            
+            if (currentUser) {
+                // عرض معلومات المستخدم
+                userInfoItem.style.display = 'block';
+                userName.textContent = currentUser.name;
+                loginLink.style.display = 'none';
+                logoutLink.style.display = 'block';
+                
+                // إذا كان المستخدم مديراً، عرض قسم المديرين
+                if (isManager) {
+                    adminSection.style.display = 'block';
+                }
+            } else {
+                userInfoItem.style.display = 'none';
+                loginLink.style.display = 'block';
+                logoutLink.style.display = 'none';
+                adminSection.style.display = 'none';
+            }
+        }
+
+        // تسجيل الخروج
+        function logout() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('isManager');
+            window.location.href = 'index.html';
+        }
+
+        // عرض نافذة الانضمام
+        function showJoinModal() {
+            document.getElementById('joinModal').style.display = 'flex';
+        }
+
+        // إغلاق النافذة المنبثقة
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // الانضمام للجمعية
+        function joinAssociation() {
+            const name = document.getElementById('joinName').value;
+            const phone = document.getElementById('joinPhone').value;
+            const type = document.getElementById('joinMembershipType').value;
+            
+            if (!name || !phone || !type) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            const data = initializeData();
+            const newMember = {
+                id: data.members.length + 1,
+                name: name,
+                number: `M${(data.members.length + 1).toString().padStart(3, '0')}`,
+                type: type,
+                joinDate: new Date().toLocaleDateString(),
+                status: "نشط",
+                phone: phone
+            };
+            
+            data.members.push(newMember);
+            localStorage.setItem('associationData', JSON.stringify(data));
+            
+            closeModal('joinModal');
+            alert(`شكراً لك ${name} على انضمامك إلى جمعيتنا! رقم عضويتك هو: ${newMember.number}`);
+        }
+
+        // تبديل الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        // تحميل الوضع الليلي من التخزين
+        function loadDarkMode() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                const themeIcon = document.querySelector('.theme-toggle i');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+
+        // تهيئة الصفحة عند التحميل
+        window.onload = function() {
+            loadUserState();
+            loadDarkMode();
+        };
+    </script>
+</body>
+</html>
