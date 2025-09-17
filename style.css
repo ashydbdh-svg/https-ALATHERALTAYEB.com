@@ -22,6 +22,7 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     transition: var(--transition);
+    width: 190vmin;
 }
 
 body.dark-mode {
@@ -30,7 +31,7 @@ body.dark-mode {
 }
 
 .container {
-    width: 90%;
+    width: 200vmin;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
@@ -39,6 +40,7 @@ body.dark-mode {
 /* التصميم العام للرأس */
 header {
     background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+        width: 200vmin;
     color: white;
     padding: 1rem 0;
     position: sticky;
@@ -91,7 +93,7 @@ nav ul li a.active {
 .hero {
     background:  url('a.jpg' )   no-repeat center center/cover;
     background-size: cover;
-    width: 200vmin;
+    width: 190vmin;
     height: 190vmin;
    border-radius:60%;
     display: flex;
@@ -102,7 +104,7 @@ nav ul li a.active {
     position: relative;
     margin-top: -60px ;
     margin-left: -90px ;
-    margin-right: -90px auto;
+    margin-right: 0px auto;
     margin-bottom: 3px auto;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     border: 8px solid rgba(255,255, 255, 0.2);
@@ -162,6 +164,7 @@ section {
 }
 
 .section-title {
+    width: 200vmin;
     text-align: center;
     margin-bottom: 3rem;
 }
@@ -327,23 +330,31 @@ tr:hover {
 
 /* تصميم الفوتر */
 footer {
+    width: 198vmin;
     background: var(--dark-color);
     color: white;
-    padding: 3rem 0 1rem;
+    padding: 9rem 0 1rem 40rem;
+    margin:1rem 1rem;
+    border-radius: 10px;
+    border-color: red;
+    animation: fadeIn 1.5s ease-in-out;
+    margin: 1 auto;
 }
 
 .footer-content {
+    width: 198vmin;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
-    margin-bottom: 2rem;
+    margin-bottom:  2rem;
 }
 
 .footer-section h3 {
-    font-size: 1.5rem;
+    font-size: 1.30rem;
     margin-bottom: 20px;
     position: relative;
     padding-bottom: 10px;
+    
 }
 
 .footer-section h3::after {
@@ -358,6 +369,7 @@ footer {
 
 .footer-links {
     list-style: none;
+    font-size: 20px;
 }
 
 .footer-links li {
@@ -548,12 +560,12 @@ footer {
     max-width: 500px;
     max-height: 80vh;
     overflow-y: auto;
+    position: relative;
+    text-align: right;
+    direction: rtl;
+
 }
 
-.dark-mode .modal-content {
-    background-color: #333;
-    color: #f0f0f0;
-}
 
 .close {
     position: absolute;
