@@ -18,7 +18,7 @@
 }
 
 body {
-    background-color: #f9f9f9;
+    background-color: #07aff7;
     color: var(--text-color);
     line-height: 1.6;
     transition: var(--transition);
@@ -89,19 +89,35 @@ nav ul li a.active {
 
 /* تصميم قسم البطل */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
-    height: 80vh;
+    background:  url('a.jpg' )   no-repeat center center/cover;
+    background-size: cover;
+    width: 200vmin;
+    height: 190vmin;
+   border-radius:60%;
     display: flex;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    color: white;
+    color: rgb(255, 255, 255);
     position: relative;
+    margin-top: -60px ;
+    margin-left: -90px ;
+    margin-right: -90px auto;
+    margin-bottom: 3px auto;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    border: 8px solid rgba(255,255, 255, 0.2);
+   animation: pulse 4s infinite ease-in-out;
+   overflow: hidden;
 }
 
 .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
+  
+
+    max-width: 70%;
+    padding: 30px;
+background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    animation: fadeIn 1.5s ease-in-out;
     margin: 0 auto;
 }
 
@@ -109,11 +125,13 @@ nav ul li a.active {
     font-size: 3.5rem;
     margin-bottom: 1rem;
     animation: fadeInDown 1s ease;
+    color: #3e05f7;
 }
 
 .hero p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
+    color: #1602f2;
     animation: fadeInUp 1s ease;
 }
 
@@ -596,5 +614,3 @@ footer {
         transform: translateY(0);
     }
 }
-
-

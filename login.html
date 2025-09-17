@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -5,322 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تسجيل الدخول - جمعية الإبداع</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2ecc71;
-            --accent-color: #e74c3c;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
-            --text-color: #333;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f9f9f9;
-            color: var(--text-color);
-            line-height: 1.6;
-            transition: var(--transition);
-        }
-
-        body.dark-mode {
-            background-color: #222;
-            color: #f0f0f0;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        /* التصميم العام للرأس */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-left: 10px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* تصميم صفحة تسجيل الدخول */
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 80vh;
-        }
-
-        .login-form {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            width: 100%;
-            max-width: 450px;
-        }
-
-        .dark-mode .login-form {
-            background: #333;
-        }
-
-        .login-form h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--dark-color);
-        }
-
-        .dark-mode .login-form h2 {
-            color: #f0f0f0;
-        }
-
-        .user-type {
-            display: flex;
-            margin-bottom: 20px;
-            background: #f5f5f5;
-            border-radius: 50px;
-            padding: 5px;
-        }
-
-        .dark-mode .user-type {
-            background: #444;
-        }
-
-        .user-type-btn {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 50px;
-            transition: var(--transition);
-        }
-
-        .user-type-btn.active {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .dark-mode .form-control {
-            background: #444;
-            color: #f0f0f0;
-            border-color: #555;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            outline: none;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--secondary-color);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            width: 100%;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background: #27ae60;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        /* تصميم الفوتر */
-        footer {
-            background: var(--dark-color);
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 50px;
-            height: 2px;
-            background: var(--secondary-color);
-        }
-
-        .footer-links {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #ddd;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary-color);
-            padding-right: 5px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            background: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* زر الوضع الليلي */
-        .theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: var(--dark-color);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            z-index: 999;
-        }
-
-        /* تصميم متجاوب */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 5px 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- الرأس -->
@@ -332,10 +18,10 @@
             </div>
             <nav>
                 <ul id="navMenu">
-                    <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="news.html">أخبار الجمعية</a></li>
-                    <li><a href="vote.html">التصويت</a></li>
-                    <li><a href="login.html" class="active">تسجيل الدخول</a></li>
+                    <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+                    <li><a href="news.html" class="nav-link">أخبار الجمعية</a></li>
+                    <li><a href="vote.html" class="nav-link">التصويت</a></li>
+                    <li><a href="login.html" class="nav-link">تسجيل الدخول</a></li>
                 </ul>
             </nav>
         </div>
@@ -362,13 +48,11 @@
                     <input type="password" id="password" class="form-control" required>
                 </div>
                 
-                <button class="btn" onclick="login()">تسجيل الدخول</button>
+                <button class="btn" style="width: 100%;" onclick="login()">تسجيل الدخول</button>
                 
                 <div style="text-align: center; margin-top: 20px;">
                     <a href="#" style="color: var(--primary-color); text-decoration: none;">نسيت كلمة المرور؟</a>
                 </div>
-
-                <div id="loginResult" style="margin-top: 20px; text-align: center; display: none;"></div>
             </div>
         </div>
     </section>
@@ -420,134 +104,21 @@
         <i class="fas fa-moon"></i>
     </div>
 
+    <script src="data.js"></script>
+    <script src="script.js"></script>
     <script>
-        // البيانات الأولية
-        const initialData = {
-            members: [
-                { id: 1, name: "أحمد محمد", number: "M001", type: "منتسب", joinDate: "2022-01-15", status: "نشط", phone: "0551234567" },
-                { id: 2, name: "فاطمة عبدالله", number: "M002", type: "مساهم", joinDate: "2021-08-22", status: "نشط", phone: "0557654321" },
-                { id: 3, name: "خالد سعيد", number: "M003", type: "منتسب", joinDate: "2023-03-10", status: "نشط", phone: "0551122334" },
-                { id: 4, name: "سارة أحمد", number: "M004", type: "مساهم", joinDate: "2020-11-05", status: "نشط", phone: "0554433221" }
-            ],
-            managers: [
-                { id: 1, name: "محمد علي", position: "رئيس الجمعية", email: "m.ali@jamy3a.com", phone: "0551234567", username: "admin", password: "admin123" },
-                { id: 2, name: "لينا حسن", position: "نائب الرئيس", email: "l.hassan@jamy3a.com", phone: "0557654321", username: "manager1", password: "manager123" },
-                { id: 3, name: "يوسف أحمد", position: "أمين الصندوق", email: "y.ahmed@jamy3a.com", phone: "0551122334", username: "manager2", password: "manager123" }
-            ],
-            settings: {
-                votingEnabled: false
-            }
-        };
-
-        // تهيئة البيانات إذا لم تكن موجودة
-        function initializeData() {
-            if (!localStorage.getItem('associationData')) {
-                localStorage.setItem('associationData', JSON.stringify(initialData));
-            }
-            return JSON.parse(localStorage.getItem('associationData'));
-        }
-
-        // حفظ البيانات
-        function saveData(data) {
-            localStorage.setItem('associationData', JSON.stringify(data));
-        }
-
-        // تحديد نوع المستخدم في تسجيل الدخول
-        function setUserType(type) {
-            document.getElementById('memberBtn').classList.toggle('active', type === 'member');
-            document.getElementById('managerBtn').classList.toggle('active', type === 'manager');
-        }
-
-        // تسجيل الدخول
-        function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const isManagerLogin = document.getElementById('managerBtn').classList.contains('active');
-            const loginResult = document.getElementById('loginResult');
-            
-            if (!username || !password) {
-                showResult('يرجى ملء جميع الحقول', 'error');
-                return;
-            }
-            
-            const data = initializeData();
-            
-            if (isManagerLogin) {
-                // تسجيل دخول مدير
-                const manager = data.managers.find(m => m.username === username && m.password === password);
-                if (manager) {
-                    localStorage.setItem('currentUser', JSON.stringify(manager));
-                    localStorage.setItem('isManager', 'true');
-                    showResult(`مرحباً ${manager.name}! تم تسجيل الدخول بنجاح كمدير.`, 'success');
-                    
-                    // الانتقال إلى الصفحة الرئيسية بعد ثانيتين
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 2000);
-                } else {
-                    showResult('اسم المستخدم أو كلمة المرور غير صحيحة', 'error');
-                }
-            } else {
-                // تسجيل دخول عضو
-                const member = data.members.find(m => m.number === username);
-                if (member) {
-                    localStorage.setItem('currentUser', JSON.stringify(member));
-                    localStorage.setItem('isManager', 'false');
-                    showResult(`مرحباً ${member.name}! تم تسجيل الدخول بنجاح كعضو.`, 'success');
-                    
-                    // الانتقال إلى الصفحة الرئيسية بعد ثانيتين
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 2000);
-                } else {
-                    showResult('رقم العضوية غير صحيح', 'error');
-                }
-            }
-        }
-
-        // عرض نتيجة تسجيل الدخول
-        function showResult(message, type) {
-            const loginResult = document.getElementById('loginResult');
-            loginResult.textContent = message;
-            loginResult.style.display = 'block';
-            
-            if (type === 'success') {
-                loginResult.style.color = 'green';
-            } else {
-                loginResult.style.color = 'red';
-            }
-        }
-
-        // تبديل الوضع الليلي
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const themeIcon = document.querySelector('.theme-toggle i');
-            
-            if (document.body.classList.contains('dark-mode')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        }
-
-        // تحميل الوضع الليلي من التخزين
-        function loadDarkMode() {
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.body.classList.add('dark-mode');
-                const themeIcon = document.querySelector('.theme-toggle i');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            }
-        }
-
-        // تهيئة الصفحة عند التحميل
+        // تهيئة صفحة تسجيل الدخول
         window.onload = function() {
             loadDarkMode();
+            
+            // إضافة class active للرابط الحالي
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === 'login.html') {
+                    link.classList.add('active');
+                }
+            });
         };
     </script>
 </body>
 </html>
+

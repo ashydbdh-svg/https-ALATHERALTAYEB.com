@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -5,299 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أعضاء الجمعية - جمعية الإبداع</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* أنماط الصفحة (نفس أنماط الصفحات الأخرى) */
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2ecc71;
-            --accent-color: #e74c3c;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
-            --text-color: #333;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f9f9f9;
-            color: var(--text-color);
-            line-height: 1.6;
-            transition: var(--transition);
-        }
-
-        body.dark-mode {
-            background-color: #222;
-            color: #f0f0f0;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-left: 10px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--dark-color);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-
-        .dark-mode .section-title h2 {
-            color: #f0f0f0;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--primary-color);
-            border-radius: 2px;
-        }
-
-        .table-container {
-            overflow-x: auto;
-            margin-bottom: 2rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .dark-mode table {
-            background: #333;
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: right;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .dark-mode th, .dark-mode td {
-            border-color: #555;
-        }
-
-        th {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 600;
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        .dark-mode tr:hover {
-            background-color: #444;
-        }
-
-        footer {
-            background: var(--dark-color);
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 50px;
-            height: 2px;
-            background: var(--secondary-color);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #ddd;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary-color);
-            padding-right: 5px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            background: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: var(--dark-color);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            z-index: 999;
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 5px 10px;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-        }
-
-        .user-info {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-left: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .user-info i {
-            margin-left: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- الرأس -->
@@ -309,18 +18,10 @@
             </div>
             <nav>
                 <ul id="navMenu">
-                    <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="news.html">أخبار الجمعية</a></li>
-                    <li><a href="vote.html">التصويت</a></li>
-                    <li><a href="members.html" class="active">الأعضاء</a></li>
-                    <li id="userInfoItem" style="display: none;">
-                        <div class="user-info">
-                            <i class="fas fa-user"></i>
-                            <span id="userName"></span>
-                        </div>
-                    </li>
-                    <li id="loginLink"><a href="login.html">تسجيل الدخول</a></li>
-                    <li id="logoutLink" style="display: none;"><a href="#" onclick="logout()">تسجيل الخروج</a></li>
+                    <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+                    <li><a href="news.html" class="nav-link">أخبار الجمعية</a></li>
+                    <li><a href="vote.html" class="nav-link">التصويت</a></li>
+                    <li><a href="login.html" class="nav-link">تسجيل الدخول</a></li>
                 </ul>
             </nav>
         </div>
@@ -346,34 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>أحمد محمد</td>
-                            <td>M001</td>
-                            <td>منتسب</td>
-                            <td>2022-01-15</td>
-                            <td>نشط</td>
-                        </tr>
-                        <tr>
-                            <td>فاطمة عبدالله</td>
-                            <td>M002</td>
-                            <td>مساهم</td>
-                            <td>2021-08-22</td>
-                            <td>نشط</td>
-                        </tr>
-                        <tr>
-                            <td>خالد سعيد</td>
-                            <td>M003</td>
-                            <td>منتسب</td>
-                            <td>2023-03-10</td>
-                            <td>نشط</td>
-                        </tr>
-                        <tr>
-                            <td>سارة أحمد</td>
-                            <td>M004</td>
-                            <td>مساهم</td>
-                            <td>2020-11-05</td>
-                            <td>نشط</td>
-                        </tr>
+                        <!-- سيتم ملء هذا القسم عبر JavaScript -->
                     </tbody>
                 </table>
             </div>
@@ -396,7 +70,7 @@
                         <li><a href="#">عن الجمعية</a></li>
                         <li><a href="news.html">أخبار الجمعية</a></li>
                         <li><a href="vote.html">التصويت</a></li>
-                        <li><a href="members.html">الأعضاء</a></li>
+                        <li><a href="#">اتصل بنا</a></li>
                     </ul>
                 </div>
                 
@@ -427,65 +101,20 @@
         <i class="fas fa-moon"></i>
     </div>
 
+    <script src="data.js"></script>
+    <script src="script.js"></script>
     <script>
-        // تحميل حالة المستخدم عند فتح الصفحة
-        function loadUserState() {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            const userInfoItem = document.getElementById('userInfoItem');
-            const userName = document.getElementById('userName');
-            const loginLink = document.getElementById('loginLink');
-            const logoutLink = document.getElementById('logoutLink');
-            
-            if (currentUser) {
-                // عرض معلومات المستخدم
-                userInfoItem.style.display = 'block';
-                userName.textContent = currentUser.name;
-                loginLink.style.display = 'none';
-                logoutLink.style.display = 'block';
-            } else {
-                userInfoItem.style.display = 'none';
-                loginLink.style.display = 'block';
-                logoutLink.style.display = 'none';
-            }
-        }
-
-        // تسجيل الخروج
-        function logout() {
-            localStorage.removeItem('currentUser');
-            localStorage.removeItem('isManager');
-            window.location.href = 'index.html';
-        }
-
-        // تبديل الوضع الليلي
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const themeIcon = document.querySelector('.theme-toggle i');
-            
-            if (document.body.classList.contains('dark-mode')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        }
-
-        // تحميل الوضع الليلي من التخزين
-        function loadDarkMode() {
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.body.classList.add('dark-mode');
-                const themeIcon = document.querySelector('.theme-toggle i');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            }
-        }
-
-        // تهيئة الصفحة عند التحميل
+        // تحميل بيانات الأعضاء عند فتح الصفحة
         window.onload = function() {
-            loadUserState();
+            loadData();
             loadDarkMode();
+            
+            // إضافة class active للرابط الحالي
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === 'members.html') {
+                    link.classList.add('active');
+                }
+            });
         };
     </script>
 </body>
