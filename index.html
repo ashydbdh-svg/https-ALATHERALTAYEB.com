@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جمعية الأثر الطيب - الموقع الرسمي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #227fdd;
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background-color: #222;
+            color: #f0f0f0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* التصميم العام للرأس */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* تصميم قسم البطل */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('a.jpg') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* تصميم الأقسام */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .dark-mode .section-title h2 {
+            color: #f0f0f0;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* تصميم البطاقات */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .dark-mode .card {
+            background: #333;
+            color: #f0f0f0;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .dark-mode .card h3 {
+            color: #f0f0f0;
+        }
+
+        /* تصميم النموذج */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .dark-mode .form-control {
+            background: #444;
+            color: #f0f0f0;
+            border-color: #555;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* تصميم الجدول */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .dark-mode table {
+            background: #333;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .dark-mode th, .dark-mode td {
+            border-color: #555;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .dark-mode tr:hover {
+            background-color: #444;
+        }
+
+        /* تصميم الفوتر */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-right: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* تصميم صفحة تسجيل الدخول */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .login-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .dark-mode .login-form {
+            background: #333;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+
+        .dark-mode .login-form h2 {
+            color: #f0f0f0;
+        }
+
+        .user-type {
+            display: flex;
+            margin-bottom: 20px;
+            background: #f5f5f5;
+            border-radius: 50px;
+            padding: 5px;
+        }
+
+        .dark-mode .user-type {
+            background: #444;
+        }
+
+        .user-type-btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .user-type-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* صفحة التصويت الخاصة */
+        .vote-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .dark-mode .vote-section {
+            background: #333;
+        }
+
+        .vote-options {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .vote-option {
+            flex: 1;
+            min-width: 200px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #eee;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dark-mode .vote-option {
+            background: #444;
+            border-color: #555;
+        }
+
+        .vote-option:hover {
+            border-color: var(--primary-color);
+            background: #f0f8ff;
+        }
+
+        .dark-mode .vote-option:hover {
+            background: #3a3a3a;
+        }
+
+        .vote-option.selected {
+            border-color: var(--secondary-color);
+            background: #f0fff4;
+        }
+
+        .dark-mode .vote-option.selected {
+            background: #2d3a2d;
+        }
+
+        .vote-option h4 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .dark-mode .vote-option h4 {
+            color: #f0f0f0;
+        }
+
+        /* إخفاء الصفحات */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* الوضع الليلي */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--dark-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .vote-options {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* نمط النوافذ المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .dark-mode .modal-content {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- الرأس -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-users"></i>
+                <span>جمعية الأثر الطيب </span>
+            </div>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#" class="nav-link" data-page="home">الرئيسية</a></li>
+                    <li><a href="#" class="nav-link" data-page="news">أخبار الجمعية</a></li>
+                    <li><a href="#" class="nav-link" data-page="vote">التصويت</a></li>
+                    <li><a href="#" class="nav-link" data-page="login">تسجيل الدخول</a></li>
+                    <!-- سيتم إضافة الروابط الأخرى ديناميكياً بعد تسجيل الدخول -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- الصفحة الرئيسية -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="container hero-content">
+                <h1>مرحباً بكم في جمعية الأثر الطيب</h1>
+                <p>جمعية الأثر الطيب   ملتزمة بخدمة المجتمع وتطويره من خلال مبادراتنا وأنشطتنا المتنوعة</p>
+                <a href="#" class="btn" onclick="showJoinModal()">انضم إلينا</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section-title">
+                <h2>أخبار الجمعية</h2>
+            </div>
+            
+            <div class="cards" id="homeNewsContainer">
+                <!-- سيتم ملء هذا القسم عبر JavaScript -->
+            </div>
+            
+            <div class="section-title">
+                <h2>أقسام الجمعية</h2>
+            </div>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80" alt="أعضاء الجمعية">
+                    </div>
+                    <div class="card-content">
+                        <h3>أعضاء الجمعية</h3>
+                        <p>تعرف على أعضاء جمعيتنا المتميزين ومساهماتهم في أنشطة الجمعية.</p>
+                        <a href="#" class="nav-link btn" data-page="members" style="margin-top: 15px;">عرض الأعضاء</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80" alt="التصويت">
+                    </div>
+                    <div class="card-content">
+                        <h3>التصويت</h3>
+                        <p>شارك في صنع القرار من خلال التصويت على قرارات الجمعية واختيار المدراء.</p>
+                        <a href="#" class="nav-link btn" data-page="vote" style="margin-top: 15px;">التصويت الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- صفحة الأعضاء -->
+    <section id="members" class="page">
+        <div class="container">
+            <div class="section-title">
+                <h2>أعضاء الجمعية</h2>
+                <p>تعرف على أعضاء جمعيتنا المتميزين</p>
+            </div>
+            
+            <div class="table-container">
+                <table id="membersTable">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>رقم العضوية</th>
+                            <th>نوع العضوية</th>
+                            <th>تاريخ الانضمام</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- سيتم ملء هذا القسم عبر JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- صفحة المدراء -->
+    <section id="managers" class="page">
+        <div class="container">
+            <div class="section-title">
+                <h2>مدراء الجمعية</h2>
+                <p>هيئة الإدارة والقيادة في الجمعية</p>
+            </div>
+            
+            <div class="cards" id="managersContainer">
+                <!-- سيتم ملء هذا القسم عبر JavaScript -->
+            </div>
+            
+            <div id="managerControls" style="display: none;">
+                <div class="section-title">
+                    <h2>لوحة تحكم المدير</h2>
+                </div>
+                
+                <div class="vote-section">
+                    <h3>إضافة مدير جديد</h3>
+                    <form id="addManagerForm">
+                        <div class="form-group">
+                            <label for="newManagerName">اسم المدير</label>
+                            <input type="text" id="newManagerName" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newManagerPosition">المنصب</label>
+                            <input type="text" id="newManagerPosition" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newManagerEmail">البريد الإلكتروني</label>
+                            <input type="email" id="newManagerEmail" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newManagerPhone">الهاتف</label>
+                            <input type="tel" id="newManagerPhone" class="form-control" required>
+                        </div>
+                        
+                        <button type="button" class="btn" onclick="addNewManager()">إضافة مدير</button>
+                    </form>
+                </div>
+                
+                <div class="vote-section">
+                    <h3>نشر خبر جديد</h3>
+                    <form id="addNewsForm">
+                        <div class="form-group">
+                            <label for="newsTitle">عنوان الخبر</label>
+                            <input type="text" id="newsTitle" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newsContent">محتوى الخبر</label>
+                            <textarea id="newsContent" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="button" class="btn" onclick="addNews()">نشر الخبر</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- صفحة التصويت -->
+    <section id="vote" class="page">
+        <div class="container">
+            <div class="section-title">
+                <h2>نظام التصويت</h2>
+                <p>يمكنك هنا المشاركة في التصويت على قرارات الجمعية أو انتخاب المدراء الجدد</p>
+                <a href="#" class="btn" onclick="showvotse()"> انقر للتصويت</a>
+            </div>
+            
+            <div id="voteNotification" style="display: none; background: #ffebee; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center;">
+                <p>التصويت غير مفعل حالياً. يرجى الانتظار حتى يقوم المدير بتفعيل التصويت.</p>
+            </div>
+            
+            <div class="vote-section" id="voteSection">
+                <h3>التصويت على انتخاب مدير جديد</h3>
+                <p>يرجى اختيار أحد المرشحين أدناه:</p>
+                
+                <div class="vote-options">
+                    <div class="vote-option" onclick="selectCandidate(this, 'أحمد محمد')">
+                        <h4>أحمد محمد</h4>
+                        <p>مرشح لديه خبرة 10 سنوات в управлении некоммерческими организациями</p>
+                    </div>
+                    <div class="vote-option" onclick="selectCandidate(this, 'فاطمة عبدالله')">
+                        <h4>فاطمة عبدالله</h4>
+                        <p>مرشحة متخصصة في تطوير المشاريع المجتمعية</p>
+                    </div>
+                    <div class="vote-option" onclick="selectCandidate(this, 'خالد سعيد')">
+                        <h4>خالد سعيد</h4>
+                        <p>مرشح حاصل على جوائز في العمل التطوعي</p>
+                    </div>
+                </div>
+                
+                <form id="voteForm">
+                    <div class="form-group">
+                        <label for="voterName">اسم المصوت</label>
+                        <input type="text" id="voterName" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="voterNumber">رقم العضوية</label>
+                        <input type="text" id="voterNumber" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="membershipType">نوع العضوية</label>
+                        <select id="membershipType" class="form-control" required>
+                            <option value="">اختر نوع العضوية</option>
+                            <option value="منتسب">منتسب</option>
+                            <option value="مساهم">مساهم</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="voterNotes">ملاحظات المصوت (اختياري)</label>
+                        <textarea id="voterNotes" class="form-control"></textarea>
+                    </div>
+                    
+                    <button type="button" class="btn" onclick="submitVote()">إرسال التصويت</button>
+                    <button type="button" class="btn" style="background: var(--accent-color);" onclick="generatePDF()">حفظ كملف PDF</button>
+                </form>
+                
+                <div id="managerVoteControls" style="display: none; margin-top: 30px;">
+                    <button type="button" class="btn" onclick="toggleVoting()" id="toggleVotingBtn">تفعيل التصويت</button>
+                </div>
+            </div>
+            
+            <div class="section-title">
+                <h2>نتائج التصويتات السابقة</h2>
+            </div>
+            
+            <div class="table-container">
+                <table id="votesTable">
+                    <thead>
+                        <tr>
+                            <th>القرار</th>
+                            <th>تاريخ التصويت</th>
+                            <th>عدد المصوتين</th>
+                            <th>النسبة المؤيدة</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- سيتم ملء هذا القسم عبر JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- صفحة الأخبار -->
+    <section id="news" class="page">
+        <div class="container">
+            <div class="section-title">
+                <h2>أخبار الجمعية</h2>
+                <p>تابع آخر أخبار وأنشطة الجمعية</p>
+            </div>
+            
+            <div class="cards" id="newsContainer">
+                <!-- سيتم ملء هذا القسم عبر JavaScript -->
+            </div>
+            
+            <div class="section-title">
+                <h2>التعليقات</h2>
+            </div>
+            
+            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow);" class="dark-mode-bg">
+                <div class="form-group">
+                    <label for="comment">أضف تعليقك</label>
+                    <textarea id="comment" class="form-control" placeholder="اكتب تعليقك هنا..."></textarea>
+                </div>
+                <button class="btn" onclick="addComment()">نشر التعليق</button>
+                
+                <div style="margin-top: 30px;" id="commentsContainer">
+                    <!-- سيتم ملء هذا القسم عبر JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الصفحة المالية -->
+    <section id="finance" class="page">
+        <div class="container">
+            <div class="section-title">
+                <h2>الإدارة المالية</h2>
+                <p>تقارير مالية وميزانية الجمعية</p>
+            </div>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>الميزانية السنوية</h3>
+                        <p>إجمالي الإيرادات: <strong id="totalRevenue">250,000 ريال</strong></p>
+                        <p>إجمالي المصروفات: <strong id="totalExpenses">180,000 ريال</strong></p>
+                        <p>صافي الدخل: <strong id="netIncome">70,000 ريال</strong></p>
+                        <a href="#" class="btn" style="margin-top: 15px;">تحميل التقرير</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>المشاريع الحالية</h3>
+                        <p>مشروع التنمية المجتمعية: <strong>75,000 ريال</strong></p>
+                        <p>مشروع التدريب والتأهيل: <strong>45,000 ريال</strong></p>
+                        <p>مشروع الدعم الاجتماعي: <strong>60,000 ريال</strong></p>
+                        <a href="#" class="btn" style="margin-top: 15px;">تفاصيل المشاريع</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>التبرعات</h3>
+                        <p>إجمالي التبرعات لهذا العام: <strong>120,000 ريال</strong></p>
+                        <p>عدد المتبرعين: <strong>85 متبرع</strong></p>
+                        <p>أكبر تبرع: <strong>15,000 ريال</strong></p>
+                        <a href="#" class="btn" style="margin-top: 15px;">التبرع الآن</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="financeControls" style="display: none;">
+                <div class="section-title">
+                    <h2>إدارة المالية</h2>
+                </div>
+                
+                <div class="vote-section">
+                    <h3>تعديل الميزانية</h3>
+                    <form id="financeForm">
+                        <div class="form-group">
+                            <label for="revenueAmount">الإيرادات (ريال)</label>
+                            <input type="number" id="revenueAmount" class="form-control" value="250000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="expensesAmount">المصروفات (ريال)</label>
+                            <input type="number" id="expensesAmount" class="form-control" value="180000" required>
+                        </div>
+                        
+                        <button type="button" class="btn" onclick="updateFinance()">تحديث الميزانية</button>
+                    </form>
+                </div>
+                
+                <div class="vote-section">
+                    <h3>إضافة تقرير مالي</h3>
+                    <form id="reportForm">
+                        <div class="form-group">
+                            <label for="reportPeriod">الفترة</label>
+                            <input type="text" id="reportPeriod" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reportRevenue">الإيرادات</label>
+                            <input type="number" id="reportRevenue" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reportExpenses">المصروفات</label>
+                            <input type="number" id="reportExpenses" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reportProfit">الأرباح/الخسائر</label>
+                            <input type="number" id="reportProfit" class="form-control" required>
+                        </div>
+                        
+                        <button type="button" class="btn" onclick="addFinancialReport()">إضافة التقرير</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="section-title">
+                <h2>التقارير المالية</h2>
+            </div>
+            
+            <div class="table-container">
+                <table id="financialReportsTable">
+                    <thead>
+                        <tr>
+                            <th>الفترة</th>
+                            <th>الإيرادات</th>
+                            <th>المصروفات</th>
+                            <th>الربح/الخسارة</th>
+                            <th>تحميل</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- سيتم ملء هذا القسم عبر JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- صفحة تسجيل الدخول -->
+    <section id="login" class="page">
+        <div class="container login-container">
+            <div class="login-form">
+                <h2>تسجيل الدخول</h2>
+                
+                <div class="user-type">
+                    <div class="user-type-btn active" id="memberBtn" onclick="setUserType('member')">عضو</div>
+                    <div class="user-type-btn" id="managerBtn" onclick="setUserType('manager')">مدير</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                
+                <button class="btn" style="width: 100%;" onclick="login()">تسجيل الدخول</button>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" style="color: var(--primary-color); text-decoration: none;">نسيت كلمة المرور؟</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>عن الجمعية</h3>
+                    <p>جمعية الأثر الطيب هي منظمة غير ربحية تهدف إلى خدمة المجتمع وتنميته من خلال برامج ومشاريع متنوعة.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="nav-link" data-page="home">الرئيسية</a></li>
+                        <li><a href="#">عن الجمعية</a></li>
+                        <li><a href="#" class="nav-link" data-page="news">أخبار الجمعية</a></li>
+                        <li><a href="#" class="nav-link" data-page="vote">التصويت</a></li>
+                        <li><a href="#">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>معلومات الاتصال</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> العنوان: تعز_الشيمايتين، الحي، الشارع</p>
+                    <p><i class="fas fa-phone"></i> الهاتف: 770784214</p>
+                    <p><i class="fas fa-envelope"></i> البريد: info@jamy3a.com</p>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>    جميع الحقوق محفوظة لداءAsheed@Kash&copy; جمعية الأثر الطيب 2025</p>
+                <p><a href="#" style="color: #ddd; text-decoration: none;">شروط الخدمة</a> | <a href="#" style="color: #ddd; text-decoration: none;">سياسة الخصوصية</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- زر الوضع الليلي -->
+    <div class="theme-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- نافذة الانضمام للجمعية -->
+    <div id="joinModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('joinModal')">&times;</span>
+            <h2>انضم إلى جمعيتنا</h2>
+            <form id="joinForm">
+                <div class="form-group">
+                    <label for="joinName">الاسم الكامل</label>
+                    <input type="text" id="joinName" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="joinPhone">رقم الهاتف</label>
+                    <input type="tel" id="joinPhone" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="joinMembershipType">نوع العضوية</label>
+                    <select id="joinMembershipType" class="form-control" required>
+                        <option value="">اختر نوع العضوية</option>
+                        <option value="منتسب">منتسب</option>
+                        <option value="مساهم">مساهم</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="btn" onclick="joinAssociation()">انضم الآن</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // البيانات الأولية
+        const initialData = {
+            members: [
+                { id: 1, name: "أحمد محمد", number: "M001", type: "منتسب", joinDate: "2022-01-15", status: "نشط", phone: "0551234567" },
+                { id: 2, name: "فاطمة عبدالله", number: "M002", type: "مساهم", joinDate: "2021-08-22", status: "نشط", phone: "0557654321" },
+                { id: 3, name: "خالد سعيد", number: "M003", type: "منتسب", joinDate: "2023-03-10", status: "نشط", phone: "0551122334" },
+                { id: 4, name: "سارة أحمد", number: "M004", type: "مساهم", joinDate: "2020-11-05", status: "نشط", phone: "0554433221" }
+            ],
+            managers: [
+                { id: 1, name: "محمد علي", position: "رئيس الجمعية", email: "m.ali@jamy3a.com", phone: "0551234567", username: "admin", password: "admin123" },
+                { id: 2, name: "لينا حسن", position: "نائب الرئيس", email: "l.hassan@jamy3a.com", phone: "0557654321", username: "manager1", password: "manager123" },
+                { id: 3, name: "يوسف أحمد", position: "أمين الصندوق", email: "y.ahmed@jamy3a.com", phone: "0551122334", username: "manager2", password: "manager123" }
+            ],
+            news: [
+                { id: 1, title: "افتتاح مشروع جديد للجمعية", date: "2023-05-15", content: "تم اليوم افتتاح مشروع 'يداً بيد' الذي يهدف إلى دعم الأسر المحتاجة في المجتمع." },
+                { id: 2, title: "حفل تكريم المتطوعين", date: "2023-04-20", content: "نظمت الجمعية حفلاً لتكريم متطوعيها البارزين في أنشطة العام الماضي." },
+                { id: 3, title: "ورشة عمل لتطوير المهارات", date: "2023-03-08", content: "عقدت الجمعية ورشة عمل حول تطوير المهارات القيادية لأعضائها." }
+            ],
+            votes: [
+                { id: 1, decision: "انتخاب مدير الجمعية", date: "2023-03-15", voters: 145, percentage: 78, status: "مكتمل" },
+                { id: 2, decision: "اعتماد الميزانية السنوية", date: "2023-02-10", voters: 132, percentage: 92, status: "مكتمل" },
+                { id: 3, decision: "تعديل نظام الجمعية", date: "2023-01-05", voters: 128, percentage: 65, status: "مكتمل" }
+            ],
+            comments: [
+                { id: 1, author: "محمد أحمد", content: "أشكر الجمعية على هذه الجهود الرائعة في خدمة المجتمع.", date: "2023-05-18" },
+                { id: 2, author: "سارة خالد", content: "أتمنى لكم التوفيق في المشروع الجديد، وأنا مستعدة للمساعدة في أي وقت.", date: "2023-05-12" }
+            ],
+            financialReports: [
+                { id: 1, period: "ربع الأول 2023", revenue: 65000, expenses: 42000, profit: 23000 },
+                { id: 2, period: "ربع الثاني 2023", revenue: 72000, expenses: 58000, profit: 14000 },
+                { id: 3, period: "ربع الثالث 2023", revenue: 68000, expenses: 45000, profit: 23000 }
+            ],
+            settings: {
+                votingEnabled: false
+            }
+        };
+
+        // حالة المستخدم الحالي
+        let currentUser = null;
+        let isManager = false;
+
+        // تهيئة البيانات إذا لم تكن موجودة
+        function initializeData() {
+            if (!localStorage.getItem('associationData')) {
+                localStorage.setItem('associationData', JSON.stringify(initialData));
+            }
+            return JSON.parse(localStorage.getItem('associationData'));
+        }
+
+        // حفظ البيانات
+        function saveData(data) {
+            localStorage.setItem('associationData', JSON.stringify(data));
+        }
+
+        // تحميل البيانات وعرضها
+        function loadData() {
+            const data = initializeData();
+            
+            // تحميل الأخبار في الصفحة الرئيسية
+            const homeNewsContainer = document.getElementById('homeNewsContainer');
+            homeNewsContainer.innerHTML = '';
+            data.news.slice(0, 3).forEach(newsItem => {
+                homeNewsContainer.innerHTML += `
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>${newsItem.title}</h3>
+                            <p><strong>التاريخ:</strong> ${newsItem.date}</p>
+                            <p>${newsItem.content}</p>
+                            <a href="#" class="nav-link btn" data-page="news" style="margin-top: 15px;">قراءة المزيد</a>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // تحميل الأعضاء
+            const membersTable = document.querySelector('#membersTable tbody');
+            if (membersTable) {
+                membersTable.innerHTML = '';
+                data.members.forEach(member => {
+                    membersTable.innerHTML += `
+                        <tr>
+                            <td>${member.name}</td>
+                            <td>${member.number}</td>
+                            <td>${member.type}</td>
+                            <td>${member.joinDate}</td>
+                            <td>${member.status}</td>
+                        </tr>
+                    `;
+                });
+            }
+            
+            // تحميل المدراء
+            const managersContainer = document.getElementById('managersContainer');
+            if (managersContainer) {
+                managersContainer.innerHTML = '';
+                data.managers.forEach(manager => {
+                    managersContainer.innerHTML += `
+                        <div class="card">
+                            <div class="card-content">
+                                <h3>${manager.name}</h3>
+                                <p><strong>المنصب:</strong> ${manager.position}</p>
+                                <p><strong>البريد الإلكتروني:</strong> ${manager.email}</p>
+                                <p><strong>الهاتف:</strong> ${manager.phone}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            // تحميل الأخبار
+            const newsContainer = document.getElementById('newsContainer');
+            if (newsContainer) {
+                newsContainer.innerHTML = '';
+                data.news.forEach(newsItem => {
+                    newsContainer.innerHTML += `
+                        <div class="card">
+                            <div class="card-content">
+                                <h3>${newsItem.title}</h3>
+                                <p><strong>التاريخ:</strong> ${newsItem.date}</p>
+                                <p>${newsItem.content}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            // تحميل التصويتات
+            const votesTable = document.querySelector('#votesTable tbody');
+            if (votesTable) {
+                votesTable.innerHTML = '';
+                data.votes.forEach(vote => {
+                    votesTable.innerHTML += `
+                        <tr>
+                            <td>${vote.decision}</td>
+                            <td>${vote.date}</td>
+                            <td>${vote.voters}</td>
+                            <td>${vote.percentage}%</td>
+                            <td>${vote.status}</td>
+                        </tr>
+                    `;
+                });
+            }
+            
+            // تحميل التعليقات
+            const commentsContainer = document.getElementById('commentsContainer');
+            if (commentsContainer) {
+                commentsContainer.innerHTML = '';
+                data.comments.forEach(comment => {
+                    commentsContainer.innerHTML += `
+                        <div style="padding: 15px; border-bottom: 1px solid #eee;">
+                            <h4>${comment.author}</h4>
+                            <p>${comment.content}</p>
+                            <small>${comment.date}</small>
+                        </div>
+                    `;
+                });
+            }
+            
+            // تحميل التقارير المالية
+            const financialReportsTable = document.querySelector('#financialReportsTable tbody');
+            if (financialReportsTable) {
+                financialReportsTable.innerHTML = '';
+                data.financialReports.forEach(report => {
+                    financialReportsTable.innerHTML += `
+                        <tr>
+                            <td>${report.period}</td>
+                            <td>${report.revenue.toLocaleString()} ريال</td>
+                            <td>${report.expenses.toLocaleString()} ريال</td>
+                            <td>${report.profit.toLocaleString()} ريال</td>
+                            <td><a href="#">تحميل</a></td>
+                        </tr>
+                    `;
+                });
+            }
+            
+            // تحديث حالة التصويت
+            updateVotingStatus(data.settings.votingEnabled);
+        }
+
+        // تحديث حالة التصويت
+        function updateVotingStatus(votingEnabled) {
+            const voteSection = document.getElementById('voteSection');
+            const voteNotification = document.getElementById('voteNotification');
+            const toggleVotingBtn = document.getElementById('toggleVotingBtn');
+            
+            if (voteSection && voteNotification && toggleVotingBtn) {
+                if (votingEnabled) {
+                    voteSection.style.display = 'block';
+                    voteNotification.style.display = 'none';
+                    toggleVotingBtn.textContent = 'إلغاء التصويت';
+                } else {
+                    voteSection.style.display = 'none';
+                    voteNotification.style.display = 'block';
+                    toggleVotingBtn.textContent = 'تفعيل التصويت';
+                }
+            }
+        }
+
+        // تبديل حالة التصويت
+        function toggleVoting() {
+            const data = initializeData();
+            data.settings.votingEnabled = !data.settings.votingEnabled;
+            saveData(data);
+            updateVotingStatus(data.settings.votingEnabled);
+        }
+
+        // إضافة مدير جديد
+        function addNewManager() {
+            const name = document.getElementById('newManagerName').value;
+            const position = document.getElementById('newManagerPosition').value;
+            const email = document.getElementById('newManagerEmail').value;
+            const phone = document.getElementById('newManagerPhone').value;
+            
+            if (!name || !position || !email || !phone) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            const data = initializeData();
+            const newManager = {
+                id: data.managers.length + 1,
+                name: name,
+                position: position,
+                email: email,
+                phone: phone,
+                username: `manager${data.managers.length + 1}`,
+                password: 'password123'
+            };
+            
+            data.managers.push(newManager);
+            saveData(data);
+            loadData();
+            
+            document.getElementById('addManagerForm').reset();
+            alert('تم إضافة المدير بنجاح!');
+        }
+
+        // إضافة خبر جديد
+        function addNews() {
+            const title = document.getElementById('newsTitle').value;
+            const content = document.getElementById('newsContent').value;
+            
+            if (!title || !content) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            const data = initializeData();
+            const newNews = {
+                id: data.news.length + 1,
+                title: title,
+                date: new Date().toLocaleDateString(),
+                content: content
+            };
+            
+            data.news.unshift(newNews); // إضافة الخبر في البداية
+            saveData(data);
+            loadData();
+            
+            document.getElementById('addNewsForm').reset();
+            alert('تم نشر الخبر بنجاح!');
+        }
+
+        // تحديث الميزانية
+        function updateFinance() {
+            const revenue = parseInt(document.getElementById('revenueAmount').value);
+            const expenses = parseInt(document.getElementById('expensesAmount').value);
+            
+            if (isNaN(revenue) || isNaN(expenses)) {
+                alert('يرجى إدخال قيم رقمية صحيحة');
+                return;
+            }
+            
+            document.getElementById('totalRevenue').textContent = revenue.toLocaleString() + ' ريال';
+            document.getElementById('totalExpenses').textContent = expenses.toLocaleString() + ' ريال';
+            document.getElementById('netIncome').textContent = (revenue - expenses).toLocaleString() + ' ريال';
+            
+            alert('تم تحديث الميزانية بنجاح!');
+        }
+
+        // إضافة تقرير مالي
+        function addFinancialReport() {
+            const period = document.getElementById('reportPeriod').value;
+            const revenue = parseInt(document.getElementById('reportRevenue').value);
+            const expenses = parseInt(document.getElementById('reportExpenses').value);
+            const profit = parseInt(document.getElementById('reportProfit').value);
+            
+            if (!period || isNaN(revenue) || isNaN(expenses) || isNaN(profit)) {
+                alert('يرجى ملء جميع الحقول بشكل صحيح');
+                return;
+            }
+            
+            const data = initializeData();
+            const newReport = {
+                id: data.financialReports.length + 1,
+                period: period,
+                revenue: revenue,
+                expenses: expenses,
+                profit: profit
+            };
+            
+            data.financialReports.push(newReport);
+            saveData(data);
+            loadData();
+            
+            document.getElementById('reportForm').reset();
+            alert('تم إضافة التقرير بنجاح!');
+        }
+
+        // الانضمام للجمعية
+        function joinAssociation() {
+            const name = document.getElementById('joinName').value;
+            const phone = document.getElementById('joinPhone').value;
+            const type = document.getElementById('joinMembershipType').value;
+            
+            if (!name || !phone || !type) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            const data = initializeData();
+            const newMember = {
+                id: data.members.length + 1,
+                name: name,
+                number: `M${(data.members.length + 1).toString().padStart(3, '0')}`,
+                type: type,
+                joinDate: new Date().toLocaleDateString(),
+                status: "نشط",
+                phone: phone
+            };
+            
+            data.members.push(newMember);
+            saveData(data);
+            
+            closeModal('joinModal');
+            alert(`شكراً لك ${name} على انضمامك إلى جمعيتنا! رقم عضويتك هو: ${newMember.number}`);
+        }
+
+        // تسجيل الدخول
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const isManagerLogin = document.getElementById('managerBtn').classList.contains('active');
+            
+            if (!username || !password) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            const data = initializeData();
+            
+            if (isManagerLogin) {
+                // تسجيل دخول مدير
+                const manager = data.managers.find(m => m.username === username && m.password === password);
+                if (manager) {
+                    currentUser = manager;
+                    isManager = true;
+                    alert(`مرحباً ${manager.name}! تم تسجيل الدخول بنجاح كمدير.`);
+                    
+                    // تحديث القائمة لإظهار جميع الأقسام
+                    updateNavigation(true);
+                    
+                    // إظهار عناصر التحكم الخاصة بالمدير
+                    document.getElementById('managerControls').style.display = 'block';
+                    document.getElementById('financeControls').style.display = 'block';
+                    document.getElementById('managerVoteControls').style.display = 'block';
+                    
+                    // الانتقال إلى الصفحة الرئيسية
+                    showPage('home');
+                } else {
+                    alert('اسم المستخدم أو كلمة المرور غير صحيحة');
+                }
+            } else {
+                // تسجيل دخول عضو
+                const member = data.members.find(m => m.number === username);
+                if (member) {
+                    currentUser = member;
+                    isManager = false;
+                    alert(`مرحباً ${member.name}! تم تسجيل الدخول بنجاح كعضو.`);
+                    
+                    // تحديث القائمة
+                    updateNavigation(false);
+                    
+                    // الانتقال إلى الصفحة الرئيسية
+                    showPage('home');
+                } else {
+                    alert('رقم العضوية غير صحيح');
+                }
+            }
+        }
+
+        // تحديث قائمة التنقل
+        function updateNavigation(isManager) {
+            const navMenu = document.getElementById('navMenu');
+            
+            // مسح القائمة الحالية
+            navMenu.innerHTML = '';
+            
+            // إضافة الروابط الأساسية
+            const basicLinks = [
+                { text: 'الرئيسية', page: 'home' },
+                { text: 'أخبار الجمعية', page: 'news' },
+                { text: 'التصويت', page: 'vote' }
+            ];
+            
+            basicLinks.forEach(link => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="#" class="nav-link" data-page="${link.page}">${link.text}</a>`;
+                navMenu.appendChild(li);
+            });
+            
+            // إضافة روابط المدير إذا كان مديراً
+            if (isManager) {
+                const managerLinks = [
+                    { text: 'الأعضاء', page: 'members' },
+                    { text: 'المدراء', page: 'managers' },
+                    { text: 'الإدارة المالية', page: 'finance' }
+                ];
+                
+                managerLinks.forEach(link => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="#" class="nav-link" data-page="${link.page}">${link.text}</a>`;
+                    navMenu.appendChild(li);
+                });
+            }
+            
+            // إضافة رابط تسجيل الخروج
+            const logoutLi = document.createElement('li');
+            logoutLi.innerHTML = '<a href="#" onclick="logout()">تسجيل الخروج</a>';
+            navMenu.appendChild(logoutLi);
+            
+            // إعادة إرفاق معالجات الأحداث
+            attachNavEvents();
+        }
+
+        // تسجيل الخروج
+        function logout() {
+            currentUser = null;
+            isManager = false;
+            
+            // إعادة تعيين القائمة إلى الحالة الافتراضية
+            const navMenu = document.getElementById('navMenu');
+            navMenu.innerHTML = `
+                <li><a href="#" class="nav-link" data-page="home">الرئيسية</a></li>
+                <li><a href="#" class="nav-link" data-page="news">أخبار الجمعية</a></li>
+                <li><a href="#" class="nav-link" data-page="vote">التصويت</a></li>
+                <li><a href="#" class="nav-link" data-page="login">تسجيل الدخول</a></li>
+            `;
+            
+            // إعادة إرفاق معالجات الأحداث
+            attachNavEvents();
+            
+            // إخفاء عناصر التحكم الخاصة بالمدير
+            document.getElementById('managerControls').style.display = 'none';
+            document.getElementById('financeControls').style.display = 'none';
+            document.getElementById('managerVoteControls').style.display = 'none';
+            
+            // الانتقال إلى الصفحة الرئيسية
+            showPage('home');
+            
+            alert('تم تسجيل الخروج بنجاح');
+        }
+
+        // إرفاق معالجات الأحداث للروابط
+        function attachNavEvents() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+        }
+
+        // عرض صفحة محددة
+        function showPage(pageId) {
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // إظهار الصفحة المحددة
+            document.getElementById(pageId).classList.add('active');
+            
+            // تحميل البيانات إذا لزم الأمر
+            if (pageId !== 'home' && pageId !== 'login') {
+                loadData();
+            }
+            
+            // scroll إلى الأعلى
+            window.scrollTo(0, 0);
+        }
+
+        // عرض نافذة الانضمام
+        function showJoinModal() {
+            document.getElementById('joinModal').style.display = 'flex';
+        }
+
+        // إغلاق النافذة المنبثقة
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // تحديد نوع المستخدم في تسجيل الدخول
+        function setUserType(type) {
+            document.getElementById('memberBtn').classList.toggle('active', type === 'member');
+            document.getElementById('managerBtn').classList.toggle('active', type === 'manager');
+        }
+
+        // تحديد مرشح في التصويت
+        let selectedCandidate = null;
+        
+        function selectCandidate(element, candidateName) {
+            // إلغاء التحديد السابق
+            document.querySelectorAll('.vote-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // تحديد الجديد
+            element.classList.add('selected');
+            selectedCandidate = candidateName;
+        }
+        
+        // إرسال التصويت
+        function submitVote() {
+            const data = initializeData();
+            
+            if (!data.settings.votingEnabled) {
+                alert('التصويت غير مفعل حالياً. يرجى الانتظار حتى يقوم المدير بتفعيل التصويت.');
+                return;
+            }
+            
+            const name = document.getElementById('voterName').value;
+            const number = document.getElementById('voterNumber').value;
+            const membership = document.getElementById('membershipType').value;
+            
+            if (!name || !number || !membership) {
+                alert('يرجى ملء جميع الحقول الإلزامية');
+                return;
+            }
+            
+            if (!selectedCandidate) {
+                alert('يرجى اختيار مرشح للتصويت');
+                return;
+            }
+            
+            // حفظ التصويت
+            const newVote = {
+                id: data.votes.length + 1,
+                voterName: name,
+                voterNumber: number,
+                membershipType: membership,
+                candidate: selectedCandidate,
+                notes: document.getElementById('voterNotes').value,
+                date: new Date().toLocaleDateString()
+            };
+            
+            // هنا يمكن إضافة التصويت إلى البيانات
+            
+            alert(`شكراً لك ${name} على المشاركة في التصويت!`);
+            
+            // إعادة تعيين النموذج
+            document.getElementById('voteForm').reset();
+            document.querySelectorAll('.vote-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            selectedCandidate = null;
+        }
+        
+        // إنشاء PDF من استمارة التصويت
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(22);
+            doc.text('استمارة التصويت - جمعية الإبداع', 105, 15, { align: 'center' });
+            
+            doc.setFontSize(16);
+            doc.text('معلومات المصوت:', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.text(`اسم المصوت: ${document.getElementById('voterName').value}`, 20, 40);
+            doc.text(`رقم العضوية: ${document.getElementById('voterNumber').value}`, 20, 50);
+            doc.text(`نوع العضوية: ${document.getElementById('membershipType').value}`, 20, 60);
+            
+            if (selectedCandidate) {
+                doc.text(`المرشح المختار: ${selectedCandidate}`, 20, 70);
+            }
+            
+            const notes = document.getElementById('voterNotes').value;
+            if (notes) {
+                doc.text('ملاحظات المصوت:', 20, 85);
+                const splitNotes = doc.splitTextToSize(notes, 170);
+                doc.text(splitNotes, 20, 95);
+            }
+            
+            doc.save('استمارة_التصويت.pdf');
+        }
+        
+        // إضافة تعليق
+        function addComment() {
+            const commentText = document.getElementById('comment').value;
+            if (!commentText) {
+                alert('يرجى كتابة تعليق');
+                return;
+            }
+            
+            const data = initializeData();
+            const newComment = {
+                id: data.comments.length + 1,
+                author: currentUser ? currentUser.name : "زائر",
+                content: commentText,
+                date: new Date().toLocaleDateString()
+            };
+            
+            data.comments.push(newComment);
+            saveData(data);
+            loadData();
+            
+            document.getElementById('comment').value = '';
+            alert('تم إضافة تعليقك بنجاح!');
+        }
+        
+        // تبديل الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+        
+        // تحميل الوضع الليلي من التخزين
+        function loadDarkMode() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                const themeIcon = document.querySelector('.theme-toggle i');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+        
+        // تهيئة الصفحة عند التحميل
+        window.onload = function() {
+            loadData();
+            loadDarkMode();
+            attachNavEvents();
+        };
+    </script>
+</body>
+</html>
