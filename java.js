@@ -272,3 +272,155 @@ function addTestimonialToDOM(testimonial) {
     testimonialGrid.appendChild(testimonialCard);
 }
 
+// تفعيل أرقام التواصل
+function initContactNumbers() {
+    const numberItems = document.querySelectorAll('.number-item');
+    
+    numberItems.forEach(item => {
+        // النقر للاتصال/المراسلة
+        item.addEventListener('click', function(e) {
+            // إذا كان الرابط موجوداً، دع المتصفح يتعامل معه
+            if (this.getAttribute('href')) {
+                return;
+            }
+            
+            // إذا لم يكن هناك رابط، انسخ الرقم
+            e.preventDefault();
+            copyPhoneNumber(this);
+        });
+        
+        // تأثيرات hover
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+}
+
+// نسخ رقم الهاتف
+function copyPhoneNumber(element) {
+    const phoneNumber = element.querySelector('span').textContent;
+    
+    // إنشاء عنصر إشعار
+    const notification = document.createElement('div');
+    notification.className = 'copy-notification';
+    notification.textContent = isEnglish ? 'Copied!' : 'تم النسخ!';
+    
+    element.style.position = 'relative';
+    element.appendChild(notification);
+    
+    // نسخ الرقم إلى الحافظة
+    navigator.clipboard.writeText(phoneNumber).then(() => {
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (element.contains(notification)) {
+                    element.removeChild(notification);
+                }
+            }, 300);
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        notification.textContent = isEnglish ? 'Copy failed!' : 'فشل النسخ!';
+        notification.classList.add('show');
+    });
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    // ... الكود الحالي ...
+    initContactNumbers(); // أضف هذا السطر
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const closeMenu = document.querySelector('.close-menu');
+    const nav = document.querySelector('nav');
+    const body = document.body;
+    
+    // فتح القائمة
+    menuToggle.addEventListener('click', function() {
+        nav.classList.add('active');
+        body.style.overflow = 'hidden';
+        // منع التمرير خلف القائمة
+        document.documentElement.style.overflow = 'hidden';
+    });
+    
+    // إغلاق القائمة عند النقر على زر الإغلاق
+    closeMenu.addEventListener('click', function() {
+        closeNavigation();
+    });
+    
+    // إغلاق القائمة عند النقر على رابط
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // إذا كان الرابط من القائمة المنسدلة، لا تغلق القائمة الرئيسية
+            if (!this.classList.contains('product-item')) {
+                closeNavigation();
+            }
+        });
+    });
+    
+    // إغلاق القائمة عند النقر خارجها
+    document.addEventListener('click', function(e) {
+        if (nav.classList.contains('active') && 
+            !nav.contains(e.target) && 
+            !menuToggle.contains(e.target)) {
+            closeNavigation();
+        }
+    });
+    
+    // إغلاق القائمة عند الضغط على زر ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && nav.classList.contains('active')) {
+            closeNavigation();
+        }
+    });
+    
+    // دالة إغلاق القائمة
+    function closeNavigation() {
+        nav.classList.remove('active');
+        body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
+        
+        // إغلاق جميع القوائم المنسدلة الفرعية
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            dropdown.classList.remove('active');
+        });
+    }
+    
+    // تفعيل القوائم المنسدلة على الجوال
+    const dropdowns = document.querySelectorAll('.dropdown > a');
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                const parent = this.parentElement;
+                parent.classList.toggle('active');
+                
+                // إغلاق القوائم المنسدلة الأخرى
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== this) {
+                        otherDropdown.parentElement.classList.remove('active');
+                    }
+                });
+            }
+        });
+    });
+    
+    // إغلاق القائمة عند تغيير حجم النافذة إلى حجم أكبر
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && nav.classList.contains('active')) {
+            closeNavigation();
+        }
+    });
+});
+
+
