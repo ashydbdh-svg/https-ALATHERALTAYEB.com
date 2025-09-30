@@ -1,6 +1,6 @@
-
 // كود جافاسكريبت لإضافة التفاعلية والترجمة
 document.addEventListener('DOMContentLoaded', function() {
+    // تعريف المتغيرات العامة
     const menuToggle = document.querySelector('.menu-toggle');
     const closeMenu = document.querySelector('.close-menu');
     const nav = document.querySelector('nav');
@@ -16,50 +16,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // تطبيق اللغة المحفوظة عند تحميل الصفحة
     if (isEnglish) {
         body.classList.add('english');
-        languageToggle.querySelector('span').textContent = 'AR';
+        if (languageToggle) {
+            languageToggle.querySelector('span').textContent = 'AR';
+        }
         translatePage('en');
     } else {
         body.classList.remove('english');
-        languageToggle.querySelector('span').textContent = 'EN';
+        if (languageToggle) {
+            languageToggle.querySelector('span').textContent = 'EN';
+        }
         translatePage('ar');
     }
-    
-    // تبديل القائمة
-    menuToggle.addEventListener('click', function() {
-        nav.classList.add('active');
-        body.style.overflow = 'hidden';
-    });
-    
-    closeMenu.addEventListener('click', function() {
-        nav.classList.remove('active');
-        body.style.overflow = 'auto';
-    });
-    
-    // إغلاق القائمة عند النقر على رابط
-    const navLinks = document.querySelectorAll('nav ul li a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            body.style.overflow = 'auto';
-        });
-    });
-    
-    // تبديل اللغة
-    languageToggle.addEventListener('click', function() {
-        isEnglish = !isEnglish;
-        
-        if (isEnglish) {
-            body.classList.add('english');
-            languageToggle.querySelector('span').textContent = 'AR';
-            translatePage('en');
-            localStorage.setItem('language', 'en');
-        } else {
-            body.classList.remove('english');
-            languageToggle.querySelector('span').textContent = 'EN';
-            translatePage('ar');
-            localStorage.setItem('language', 'ar');
-        }
-    });
     
     // وظيفة الترجمة
     function translatePage(lang) {
@@ -85,69 +52,179 @@ document.addEventListener('DOMContentLoaded', function() {
         element.dataset.original = element.textContent;
     });
     
-    // عرض تفاصيل المنتج
-    productItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const product = this.dataset.product;
-            
-            if (product === 'electrical') {
-                productDetail.classList.add('active');
-                
-                // التمرير إلى قسم المنتج
-                productDetail.scrollIntoView({ behavior: 'smooth' });
-            }
-            // يمكن إضافة منتجات أخرى هنا
+    // ========== إدارة القائمة المنسدلة ==========
+    function initNavigation() {
+        // فتح القائمة
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function() {
+                nav.classList.add('active');
+                body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+            });
+        }
+        
+        // إغلاق القائمة عند النقر على زر الإغلاق
+        if (closeMenu) {
+            closeMenu.addEventListener('click', function() {
+                closeNavigation();
+            });
+        }
+        
+        // إغلاق القائمة عند النقر على رابط
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // إذا كان الرابط من القائمة المنسدلة، لا تغلق القائمة الرئيسية
+                if (!this.classList.contains('product-item')) {
+                    closeNavigation();
+                }
+            });
         });
-    });
-    
-    // العودة إلى قائمة المنتجات
-    if (backToProducts) {
-        backToProducts.addEventListener('click', function(e) {
-            e.preventDefault();
-            productDetail.classList.remove('active');
+        
+        // إغلاق القائمة عند النقر خارجها
+        document.addEventListener('click', function(e) {
+            if (nav.classList.contains('active') && 
+                !nav.contains(e.target) && 
+                !menuToggle.contains(e.target)) {
+                closeNavigation();
+            }
+        });
+        
+        // إغلاق القائمة عند الضغط على زر ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && nav.classList.contains('active')) {
+                closeNavigation();
+            }
+        });
+        
+        // دالة إغلاق القائمة
+        function closeNavigation() {
+            nav.classList.remove('active');
+            body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
             
-            // التمرير إلى قسم المنتجات
-            document.querySelector('.products').scrollIntoView({ behavior: 'smooth' });
+            // إغلاق جميع القوائم المنسدلة الفرعية
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+        
+        // تفعيل القوائم المنسدلة على الجوال
+        const dropdowns = document.querySelectorAll('.dropdown > a');
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const parent = this.parentElement;
+                    parent.classList.toggle('active');
+                    
+                    // إغلاق القوائم المنسدلة الأخرى
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== this) {
+                            otherDropdown.parentElement.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        });
+        
+        // إغلاق القائمة عند تغيير حجم النافذة إلى حجم أكبر
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && nav.classList.contains('active')) {
+                closeNavigation();
+            }
         });
     }
     
-    // تأثير التظليل للشريط العلوي عند التمرير
-    const header = document.querySelector('header');
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 70) {
-            header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+    // ========== تبديل اللغة ==========
+    function initLanguageToggle() {
+        if (languageToggle) {
+            languageToggle.addEventListener('click', function() {
+                isEnglish = !isEnglish;
+                
+                if (isEnglish) {
+                    body.classList.add('english');
+                    languageToggle.querySelector('span').textContent = 'AR';
+                    translatePage('en');
+                    localStorage.setItem('language', 'en');
+                } else {
+                    body.classList.remove('english');
+                    languageToggle.querySelector('span').textContent = 'EN';
+                    translatePage('ar');
+                    localStorage.setItem('language', 'ar');
+                }
+            });
         }
-    });
+    }
     
-    // التحقق من صحة النماذج
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert(isEnglish ? 'Thank you! Your message has been received and we will contact you soon.' : 'شكراً لك! تم استلام رسالتك وسنتواصل معك قريباً.');
-            form.reset();
-        });
-    });
-    
-    // تفعيل القائمة المنسدلة على الهواتف
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
+    // ========== إدارة المنتجات ==========
+    function initProducts() {
+        // عرض تفاصيل المنتج
+        productItems.forEach(item => {
+            item.addEventListener('click', function(e) {
                 e.preventDefault();
-                this.classList.toggle('active');
-            }
+                const product = this.dataset.product;
+                
+                if (product === 'electrical' && productDetail) {
+                    productDetail.classList.add('active');
+                    
+                    // التمرير إلى قسم المنتج
+                    productDetail.scrollIntoView({ behavior: 'smooth' });
+                }
+                // يمكن إضافة منتجات أخرى هنا
+            });
         });
-    });
+        
+        // العودة إلى قائمة المنتجات
+        if (backToProducts) {
+            backToProducts.addEventListener('click', function(e) {
+                e.preventDefault();
+                productDetail.classList.remove('active');
+                
+                // التمرير إلى قسم المنتجات
+                document.querySelector('.products').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+    }
     
-    // نظام التعليقات والتقييمات
+    // ========== تأثير التمرير ==========
+    function initScrollEffects() {
+        const header = document.querySelector('header');
+        if (header) {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 70) {
+                    header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+                }
+            });
+        }
+    }
+    
+    // ========== إدارة النماذج ==========
+    function initForms() {
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert(isEnglish ? 'Thank you! Your message has been received and we will contact you soon.' : 'شكراً لك! تم استلام رسالتك وسنتواصل معك قريباً.');
+                form.reset();
+            });
+        });
+    }
+    
+    // ========== تهيئة جميع المكونات ==========
+    initNavigation();
+    initLanguageToggle();
+    initProducts();
+    initScrollEffects();
+    initForms();
     initTestimonials();
+    initContactNumbers();
 });
 
-// نظام التعليقات والتقييمات
+// ========== نظام التعليقات والتقييمات ==========
 function initTestimonials() {
     const testimonialForm = document.getElementById('testimonial-form');
     const testimonialGrid = document.querySelector('.testimonials-grid');
@@ -175,6 +252,9 @@ function initTestimonials() {
             const commentInput = document.getElementById('testimonial-comment');
             const rating = document.querySelector('.rating-input i.active') ? 
                           document.querySelector('.rating-input i.active').getAttribute('data-rating') : 0;
+            
+            // الحصول على حالة اللغة من localStorage
+            const isEnglish = localStorage.getItem('language') === 'en';
             
             if (!nameInput.value || !commentInput.value || rating == 0) {
                 alert(isEnglish ? 'Please fill all fields and select a rating' : 'يرجى ملء جميع الحقول وتحديد التقييم');
@@ -234,6 +314,9 @@ function loadTestimonials() {
     
     let testimonials = JSON.parse(localStorage.getItem('testimonials')) || [];
     
+    // الحصول على حالة اللغة من localStorage
+    const isEnglish = localStorage.getItem('language') === 'en';
+    
     if (testimonials.length === 0) {
         testimonialGrid.innerHTML = '<p class="translate" data-en="No testimonials yet. Be the first to leave a review!">لا توجد تعليقات بعد. كن أول من يترك تعليقاً!</p>';
         return;
@@ -272,7 +355,7 @@ function addTestimonialToDOM(testimonial) {
     testimonialGrid.appendChild(testimonialCard);
 }
 
-// تفعيل أرقام التواصل
+// ========== تفعيل أرقام التواصل ==========
 function initContactNumbers() {
     const numberItems = document.querySelectorAll('.number-item');
     
@@ -304,6 +387,9 @@ function initContactNumbers() {
 function copyPhoneNumber(element) {
     const phoneNumber = element.querySelector('span').textContent;
     
+    // الحصول على حالة اللغة من localStorage
+    const isEnglish = localStorage.getItem('language') === 'en';
+    
     // إنشاء عنصر إشعار
     const notification = document.createElement('div');
     notification.className = 'copy-notification';
@@ -330,97 +416,3 @@ function copyPhoneNumber(element) {
         notification.classList.add('show');
     });
 }
-
-// استدعاء الدالة عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-    // ... الكود الحالي ...
-    initContactNumbers(); // أضف هذا السطر
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const closeMenu = document.querySelector('.close-menu');
-    const nav = document.querySelector('nav');
-    const body = document.body;
-    
-    // فتح القائمة
-    menuToggle.addEventListener('click', function() {
-        nav.classList.add('active');
-        body.style.overflow = 'hidden';
-        // منع التمرير خلف القائمة
-        document.documentElement.style.overflow = 'hidden';
-    });
-    
-    // إغلاق القائمة عند النقر على زر الإغلاق
-    closeMenu.addEventListener('click', function() {
-        closeNavigation();
-    });
-    
-    // إغلاق القائمة عند النقر على رابط
-    const navLinks = document.querySelectorAll('nav ul li a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            // إذا كان الرابط من القائمة المنسدلة، لا تغلق القائمة الرئيسية
-            if (!this.classList.contains('product-item')) {
-                closeNavigation();
-            }
-        });
-    });
-    
-    // إغلاق القائمة عند النقر خارجها
-    document.addEventListener('click', function(e) {
-        if (nav.classList.contains('active') && 
-            !nav.contains(e.target) && 
-            !menuToggle.contains(e.target)) {
-            closeNavigation();
-        }
-    });
-    
-    // إغلاق القائمة عند الضغط على زر ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && nav.classList.contains('active')) {
-            closeNavigation();
-        }
-    });
-    
-    // دالة إغلاق القائمة
-    function closeNavigation() {
-        nav.classList.remove('active');
-        body.style.overflow = 'auto';
-        document.documentElement.style.overflow = 'auto';
-        
-        // إغلاق جميع القوائم المنسدلة الفرعية
-        const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-            dropdown.classList.remove('active');
-        });
-    }
-    
-    // تفعيل القوائم المنسدلة على الجوال
-    const dropdowns = document.querySelectorAll('.dropdown > a');
-    dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                const parent = this.parentElement;
-                parent.classList.toggle('active');
-                
-                // إغلاق القوائم المنسدلة الأخرى
-                dropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== this) {
-                        otherDropdown.parentElement.classList.remove('active');
-                    }
-                });
-            }
-        });
-    });
-    
-    // إغلاق القائمة عند تغيير حجم النافذة إلى حجم أكبر
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768 && nav.classList.contains('active')) {
-            closeNavigation();
-        }
-    });
-});
-
-
